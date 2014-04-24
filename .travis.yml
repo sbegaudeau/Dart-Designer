@@ -4,7 +4,6 @@ before_script:
 - npm install -g bower
 - bower install
 - cd ../../releng/org.obeonetwork.dsl.dart.releng/launcher
-after_script:
-- ./travis-promote.sh
+after_script: ./travis-promote.sh
 script: mvn clean verify
 jdk: oraclejdk7
