@@ -30,7 +30,7 @@ else
     if [ $TRAVIS_PULL_REQUEST == 'false' ]
     then
 	    LAST_TAG=$(git describe --abbrev=0 --tags)
-        echo "Promoting the release $LAST_TAG"
+        echo "Promoting the release $LAST_TAG  on dartdesigner.github.io/p2/releases/$LAST_TAG"
 		cd repositories/org.obeonetwork.dsl.dart.repository/target
 		git clone https://$GITHUB_TOKEN@github.com/dartdesigner/p2.git -b gh-pages
 		if [ -d p2/releases/$LAST_TAG ]
