@@ -23,7 +23,7 @@ then
 	git remote rm origin
 	git remote add origin https://dartdesigner:$GITHUB_TOKEN@github.com/dartdesigner/p2.git
 	git add -A
-	git commit -m "Promoting a new nightly build for $TRAVIS_COMMIT [$TRAVIS_BRANCH]"
+	git commit -m "Promoting a new nightly build for https://github.com/dartdesigner/Dart-Designer/commit/$TRAVIS_COMMIT [$TRAVIS_BRANCH]"
 	git push origin gh-pages
 	echo "Build promoted."
 else
@@ -51,7 +51,7 @@ else
 		git remote rm origin
 		git remote add origin https://dartdesigner:$GITHUB_TOKEN@github.com/dartdesigner/p2.git
 		git add -A
-		git commit -m "Promoting a new nightly build for $TRAVIS_COMMIT [$TRAVIS_BRANCH]"
+		git commit -m "Promoting a new nightly build for https://github.com/dartdesigner/Dart-Designer/commit/$TRAVIS_COMMIT [$TRAVIS_BRANCH]"
 		git push origin gh-pages
 		echo "Build promoted."
     fi
