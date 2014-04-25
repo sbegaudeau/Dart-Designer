@@ -2,7 +2,7 @@ echo "Build $TRAVIS_JOB_NUMBER"
 echo "Commit $TRAVIS_COMMIT [$TRAVIS_BRANCH]"
 echo "Java version: $TRAVIS_JDK_VERSION"
 CURRENT_TAG=$(git name-rev --name-only --tags HEAD)
-if [[ $CURRENT_TAG == 'undefined' ]];
+if [ $CURRENT_TAG == 'undefined' ]
 then
     echo "Promoting an untagged build on dartdesigner.github.io/p2/nightly"
 	cd $TRAVIS_BUILD_DIR/Dart-Designer/repositories/org.obeonetwork.dsl.dart.repository/target
@@ -18,7 +18,7 @@ then
 	git commit -m "$TRAVIS_COMMIT-MESSAGE"
 	git push origin gh-pages
 else
-    if [[ $TRAVIS_PULL_REQUEST == 'false' ]];
+    if [ $TRAVIS_PULL_REQUEST == 'false' ]
 	then
 	    LAST_TAG=$(git describe --abbrev=0 --tags)
         echo "Promoting the release $LAST_TAG"
