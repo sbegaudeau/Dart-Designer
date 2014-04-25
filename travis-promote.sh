@@ -1,5 +1,4 @@
 echo "Build $TRAVIS_JOB_NUMBER"
-echo "$TRAVIS_COMMIT-MESSAGE"
 echo "Git: $TRAVIS_COMMIT [$TRAVIS_BRANCH]"
 echo "Java version: $TRAVIS_JDK_VERSION"
 CURRENT_TAG=$(git name-rev --name-only --tags HEAD)
@@ -23,10 +22,10 @@ then
 	git commit -m "$TRAVIS_COMMIT-MESSAGE"
 	git push origin gh-pages
 	echo "Build promoted."
+elif [ $TRAVIS_PULL_REQUEST == 'false' ]
+then
+	LAST_TAG=$(git describe --abbrev=0 --tags)
+    echo "Promoting the release $LAST_TAG"
 else
-    if [ $TRAVIS_PULL_REQUEST == 'false' ]
-	then
-	    LAST_TAG=$(git describe --abbrev=0 --tags)
-        echo "Promoting the release $LAST_TAG"
-	fi
+    echo "Nothing to do..."
 fi
