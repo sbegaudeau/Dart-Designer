@@ -18,6 +18,8 @@ then
 	echo "Nightly repository created"
 	ls p2/nightly
 	cd p2
+	git config user.email "stephane.begaudeau@gmail.com"
+    git config user.name "Stéphane Bégaudeau"
 	git remote rm origin
 	git remote add origin https://dartdesigner:$GITHUB_TOKEN@github.com/dartdesigner/p2.git
 	git add -A
