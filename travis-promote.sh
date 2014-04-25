@@ -6,7 +6,7 @@ if [ $CURRENT_TAG == 'undefined' ]
 then
     echo "Promoting an untagged build on dartdesigner.github.io/p2/nightly"
 	cd $TRAVIS_BUILD_DIR/Dart-Designer/repositories/org.obeonetwork.dsl.dart.repository/target
-	git clone https://$GITHUB_TOKEN@github.com/dartdesigner/p2.git#gh-pages
+	git clone https://$GITHUB_TOKEN@github.com/dartdesigner/p2.git -b gh-pages
 	if [-d p2/nightly]
 	then
 	    rm -r p2/nightly
@@ -17,6 +17,7 @@ then
 	git add .
 	git commit -m "$TRAVIS_COMMIT-MESSAGE"
 	git push origin gh-pages
+	echo "Build promoted."
 else
     if [ $TRAVIS_PULL_REQUEST == 'false' ]
 	then
