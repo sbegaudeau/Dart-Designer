@@ -23,13 +23,36 @@ then
 	git remote rm origin
 	git remote add origin https://dartdesigner:$GITHUB_TOKEN@github.com/dartdesigner/p2.git
 	git add -A
-	git commit -m "$TRAVIS_COMMIT-MESSAGE"
+	git commit -m "$TRAVIS_COMMIT_MESSAGE"
 	git push origin gh-pages
 	echo "Build promoted."
 else
     if [ $TRAVIS_PULL_REQUEST == 'false' ]
     then
-	     LAST_TAG=$(git describe --abbrev=0 --tags)
+	    LAST_TAG=$(git describe --abbrev=0 --tags)
         echo "Promoting the release $LAST_TAG"
+		cd repositories/org.obeonetwork.dsl.dart.repository/target
+		git clone https://$GITHUB_TOKEN@github.com/dartdesigner/p2.git -b gh-pages
+		if [ -d p2/releases/$LAST_TAG ]
+		then
+			rm -r p2/releases/$LAST_TAG
+			echo "An old version of the nightly repository has been found and removed"
+		fi
+		echo "Creating the nighly repository"
+		cp -r repository p2/
+		mkdir -p p2/releases
+		mv p2/repository p2/releases/$LAST_TAG
+		echo "Releases repository created"
+		ls p2/releases
+		ls p2/releases/$LAST_TAG
+		cd p2
+		git config user.email "stephane.begaudeau@gmail.com"
+		git config user.name "Stéphane Bégaudeau"
+		git remote rm origin
+		git remote add origin https://dartdesigner:$GITHUB_TOKEN@github.com/dartdesigner/p2.git
+		git add -A
+		git commit -m "$TRAVIS_COMMIT_MESSAGE"
+		git push origin gh-pages
+		echo "Build promoted."
     fi
 fi
