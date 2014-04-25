@@ -1,4 +1,4 @@
-﻿echo "Build $TRAVIS_JOB_NUMBER"
+echo "Build $TRAVIS_JOB_NUMBER"
 echo "Git: $TRAVIS_COMMIT [$TRAVIS_BRANCH]"
 echo "Java version: $TRAVIS_JDK_VERSION"
 CURRENT_TAG=$(git name-rev --name-only --tags HEAD)
@@ -18,14 +18,16 @@ then
 	echo "Nightly repository created"
 	ls p2/nightly
 	cd p2
-	git add .
+	git remote rm origin
+	git remote add origin https://dartdesigner:$GITHUB_TOKEN@github.com/dartdesigner/p2.git
+	git add -A
 	git commit -m "$TRAVIS_COMMIT-MESSAGE"
 	git push origin gh-pages
 	echo "Build promoted."
-elif [ $TRAVIS_PULL_REQUEST == 'false' ]
-then
-	LAST_TAG=$(git describe --abbrev=0 --tags)
-    echo "Promoting the release $LAST_TAG"
 else
-    echo "Nothing to do..."
+    if [ $TRAVIS_PULL_REQUEST == 'false' ]
+    then
+	     LAST_TAG=$(git describe --abbrev=0 --tags)
+        echo "Promoting the release $LAST_TAG"
+    fi
 fi
